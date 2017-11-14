@@ -12,5 +12,6 @@ exports.index1 = function(req, res){
 };
 
 exports.index2 = function(req, res){
-  res.render('index2.html', { u: 'Animals Database' });
+  var user = req.user;
+  res.render('index2.html', {u: user});
 };

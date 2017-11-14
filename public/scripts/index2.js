@@ -26,5 +26,3 @@ function addanimal() {
         console.error(err);
     })
 }
-
-console.log(document);
