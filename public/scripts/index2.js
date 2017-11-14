@@ -21,9 +21,10 @@ function addanimal() {
     };
     item++
     xhrPost(REST_DATA, data, function(item){
-        
+
     }, function(err) {
         console.error(err);
     })
 }
 
+console.log(document);
