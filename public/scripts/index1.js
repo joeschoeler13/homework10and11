@@ -110,6 +110,18 @@ function setRowContent(item, row) {
         
 }
 
-
+function deleteItem(deleteBtnNode) {
+    var row = deleteBtnNode.parentNode.parentNode;
+    var attribId = row.getAttribute('data-id');
+    if (attribId) {
+        xhrDelete(REST_DATA + '?id=' + row.getAttribute('data-id'), function() {
+        row.parentNode.removeChild(row);
+        }, function(err) {
+            console.error(err);
+        });
+    } else if (attribId == null) {
+        row.parentNode.removeChild(row);
+    }
+}
 
 loadItems();
