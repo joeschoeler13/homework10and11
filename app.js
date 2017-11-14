@@ -111,7 +111,7 @@ function initDBConnection() {
 
     cloudanta.db.create(dbCredentials.dbName, function(err, res) {
         if (err) {
-            console.log('Could not create new db: ' + dbCredentials.dbName + ', it might already exist.');
+            console.log('Could not create new db: ' + dbCredentialsa.dbName + ', it might already exist.');
         }
     });
 
