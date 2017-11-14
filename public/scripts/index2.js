@@ -17,10 +17,8 @@ function addanimal() {
 
     var data = {
         name: "animal",
-        animalname: document.getElementById('animalname').value,
-        animallegs: document.getElementById('animallegs').value
+        value: document.getElementById('newanimal').value
     };
-    console.log(data)
     item++
     xhrPost(REST_DATA, data, function(item){
 
