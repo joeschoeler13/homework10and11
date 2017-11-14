@@ -19,13 +19,20 @@ var basic = auth.basic({
 var app = express();
 
 var db;
+var dba;
 
+var Cloudant;
 var cloudant;
+var cloudanta;
 
 var fileToUpload;
 
 var dbCredentials = {
     dbName: 'my_sample_db'
+};
+
+var dbCredentialsa = {
+    dbName: 'animal_db'
 };
 
 var bodyParser = require('body-parser');
@@ -75,6 +82,7 @@ function initDBConnection() {
     //containing all the service credentials of all the bound services
     if (process.env.VCAP_SERVICES) {
         dbCredentials.url = getDBCredentialsUrl(process.env.VCAP_SERVICES);
+        dbCredentialsa.url = getDBCredentialsUrl(process.env.VCAP_SERVICES);
     } else { //When running locally, the VCAP_SERVICES will not be set
 
         // When running this app locally you can get your Cloudant credentials
@@ -85,9 +93,12 @@ function initDBConnection() {
         // Bluemix service.
         // url will be in this format: https://username:password@xxxxxxxxx-bluemix.cloudant.com
         dbCredentials.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
+        dbCredentialsa.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
     }
 
-    cloudant = require('cloudant')(dbCredentials.url);
+    Cloudant = require('cloudant');
+    cloudant = Cloudant(dbCredentials.url);
+    cloudanta = Cloudant(dbCredentialsa.url);
 
     // check if DB exists if not create
     cloudant.db.create(dbCredentials.dbName, function(err, res) {
@@ -97,6 +108,14 @@ function initDBConnection() {
     });
 
     db = cloudant.use(dbCredentials.dbName);
+
+    cloudanta.db.create(dbCredentials.dbName, function(err, res) {
+        if (err) {
+            console.log('Could not create new db: ' + dbCredentials.dbName + ', it might already exist.');
+        }
+    });
+
+    db = cloudanta.use(dbCredentialsa.dbName);
 }
 
 initDBConnection();
