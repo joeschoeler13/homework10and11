@@ -74,7 +74,9 @@ function xhrPost(url, data, callback, errback){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4){
 			if(xhr.status == 200){
-				callback(parseJson(xhr.responseText));
+				if(xhr.responseText.length>0){
+					callback(xhr.responseText);
+				}
 			}else{
 				errback('service not available');
 			}

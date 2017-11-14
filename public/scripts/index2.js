@@ -21,7 +21,7 @@ function addanimal() {
     };
     item++
     xhrPost(REST_DATA, data, function(item){
-        row.setAttribute('data-id', item);
+        
     }, function(err) {
         console.error(err);
     })
